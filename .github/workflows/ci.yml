@@ -45,3 +45,6 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
           NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
