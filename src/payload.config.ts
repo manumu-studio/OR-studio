@@ -1,4 +1,4 @@
-// Payload CMS config — MongoDB, collections (Users, Media, Categories, Projects), Cloudinary storage, Lexical editor.
+// Payload CMS config — MongoDB, collections (Users, Media, Categories, Projects), globals, Cloudinary storage, Lexical editor
 import path from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
@@ -11,6 +11,10 @@ import { Categories } from '@/collections/Categories';
 import { Media } from '@/collections/Media';
 import { Projects } from '@/collections/Projects';
 import { Users } from '@/collections/Users';
+import { SiteSettings } from '@/globals/SiteSettings';
+import { HomePage } from '@/globals/HomePage';
+import { ContactPage } from '@/globals/ContactPage';
+import { AboutPage } from '@/globals/AboutPage';
 import { env } from '@/lib/env';
 import { getCloudinaryAdapter } from '@/lib/cloudinary-adapter';
 
@@ -29,6 +33,7 @@ export default buildConfig({
         : false,
   },
   collections: [Users, Media, Categories, Projects],
+  globals: [SiteSettings, HomePage, ContactPage, AboutPage],
   editor: lexicalEditor(),
   secret: env.PAYLOAD_SECRET,
   serverURL:

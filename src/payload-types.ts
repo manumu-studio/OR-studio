@@ -93,8 +93,18 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSettingsGlobal;
+    'home-page': HomePageGlobal;
+    'contact-page': ContactPageGlobal;
+    'about-page': AboutPageGlobal;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsGlobalSelect<false> | SiteSettingsGlobalSelect<true>;
+    'home-page': HomePageGlobalSelect<false> | HomePageGlobalSelect<true>;
+    'contact-page': ContactPageGlobalSelect<false> | ContactPageGlobalSelect<true>;
+    'about-page': AboutPageGlobalSelect<false> | AboutPageGlobalSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -502,6 +512,237 @@ export interface CollectionsWidget {
  */
 export interface Auth {
   [k: string]: unknown;
+}
+
+/**
+ * All images uploaded here are stored in Cloudinary CDN.
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  caption?: string | null;
+  orientation?: ('landscape' | 'portrait' | 'square') | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    gallery?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+
+/** Project categories shown as filter tabs on the Works page. */
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+
+/** Portfolio projects displayed on the Works page. */
+export interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  category: string | Category;
+  featuredImage: string | Media;
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  description?: string | null;
+  order: number;
+  status: 'draft' | 'published';
+  updatedAt: string;
+  createdAt: string;
+}
+
+/**
+ * Site-wide settings: branding, contact email, social links, and navigation.
+ */
+export interface SiteSettingsGlobal {
+  id: string;
+  siteName: string;
+  logo?: (string | Media) | null;
+  contactEmail: string;
+  socialLinks?:
+    | {
+        platform: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  navLinks?:
+    | {
+        label: string;
+        url: string;
+        order: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+/**
+ * Home page content: hero section, about preview, and featured project banners.
+ */
+export interface HomePageGlobal {
+  id: string;
+  heroTitle: string;
+  heroSubtitle?: string | null;
+  heroImages: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  aboutBanner?: {
+    text: string;
+    linkLabel?: string | null;
+    linkUrl?: string | null;
+    image?: (string | Media) | null;
+  };
+  workBanners?:
+    | {
+        project: string | Project;
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+/**
+ * Contact page content: heading, subtitle, and background image.
+ */
+export interface ContactPageGlobal {
+  id: string;
+  headerText: string;
+  subtitleText?: string | null;
+  backgroundImage?: (string | Media) | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+/**
+ * About page content: heading, body text, and background image.
+ */
+export interface AboutPageGlobal {
+  id: string;
+  heading: string;
+  sectionText?: Record<string, unknown> | null;
+  backgroundImage?: (string | Media) | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+export interface SiteSettingsGlobalSelect<T extends boolean = true> {
+  siteName?: T;
+  logo?: T;
+  contactEmail?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  navLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        order?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+
+export interface HomePageGlobalSelect<T extends boolean = true> {
+  heroTitle?: T;
+  heroSubtitle?: T;
+  heroImages?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  aboutBanner?:
+    | T
+    | {
+        text?: T;
+        linkLabel?: T;
+        linkUrl?: T;
+        image?: T;
+      };
+  workBanners?:
+    | T
+    | {
+        project?: T;
+        image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+
+export interface ContactPageGlobalSelect<T extends boolean = true> {
+  headerText?: T;
+  subtitleText?: T;
+  backgroundImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+
+export interface AboutPageGlobalSelect<T extends boolean = true> {
+  heading?: T;
+  sectionText?: T;
+  backgroundImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 
 declare module 'payload' {
