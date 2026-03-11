@@ -1,12 +1,22 @@
-// Payload CMS config — MongoDB, Users collection, Lexical editor
+// Payload CMS config — MongoDB, collections (Users, Media, Categories, Projects), globals, Cloudinary storage, Lexical editor
 import path from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 import { buildConfig } from 'payload';
 
-import { Users } from './collections/Users';
+import { Categories } from '@/collections/Categories';
+import { Media } from '@/collections/Media';
+import { Projects } from '@/collections/Projects';
+import { Users } from '@/collections/Users';
+import { SiteSettings } from '@/globals/SiteSettings';
+import { HomePage } from '@/globals/HomePage';
+import { ContactPage } from '@/globals/ContactPage';
+import { AboutPage } from '@/globals/AboutPage';
+import { env } from '@/lib/env';
+import { getCloudinaryAdapter } from '@/lib/cloudinary-adapter';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -22,9 +32,10 @@ export default buildConfig({
         ? { email: 'dev@orstudio.com', password: 'password' }
         : false,
   },
-  collections: [Users],
+  collections: [Users, Media, Categories, Projects],
+  globals: [SiteSettings, HomePage, ContactPage, AboutPage],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: env.PAYLOAD_SECRET,
   serverURL:
     process.env.NEXT_PUBLIC_SERVER_URL ||
     process.env.PAYLOAD_PUBLIC_SERVER_URL ||
@@ -34,8 +45,22 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: process.env.MONGODB_URI || process.env.DATABASE_URI || '',
+    url: env.MONGODB_URI,
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    cloudStoragePlugin({
+      collections: {
+        media: {
+          adapter: getCloudinaryAdapter({
+            cloudName: env.CLOUDINARY_CLOUD_NAME,
+            apiKey: env.CLOUDINARY_API_KEY,
+            apiSecret: env.CLOUDINARY_API_SECRET,
+            folder: 'or-studio',
+          }),
+          disableLocalStorage: true,
+        },
+      },
+    }),
+  ],
 });
