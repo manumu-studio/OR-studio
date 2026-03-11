@@ -1,4 +1,4 @@
-// Payload CMS config — MongoDB, Users, Media (Cloudinary), Lexical editor. Configures collections, plugins, and database.
+// Payload CMS config — MongoDB, collections (Users, Media, Categories, Projects), Cloudinary storage, Lexical editor.
 import path from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
@@ -7,7 +7,9 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
 import { buildConfig } from 'payload';
 
+import { Categories } from '@/collections/Categories';
 import { Media } from '@/collections/Media';
+import { Projects } from '@/collections/Projects';
 import { Users } from '@/collections/Users';
 import { env } from '@/lib/env';
 import { getCloudinaryAdapter } from '@/lib/cloudinary-adapter';
@@ -26,7 +28,7 @@ export default buildConfig({
         ? { email: 'dev@orstudio.com', password: 'password' }
         : false,
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Categories, Projects],
   editor: lexicalEditor(),
   secret: env.PAYLOAD_SECRET,
   serverURL:
