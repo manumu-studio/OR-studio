@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "OR Studio — Architectural visualization portfolio with Payload CMS",
   "license": "MIT",
+  "packageManager": "pnpm@9.12.3",
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
