@@ -1,0 +1,240 @@
+// OR Studio design tokens — typography, spacing, colors, z-indexes, transitions
+
+/* =========================== */
+/*  TYPOGRAPHY BASE            */
+/* =========================== */
+$base-font-size: 16px;
+$line-height: 1.5;
+$font-family-base: 'Raleway', sans-serif;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-semibold: 500;
+$font-weight-bold: 600;
+
+/* =========================== */
+/*  FLUID SIZES (aliases)      */
+/* =========================== */
+$font-p: clamp(10rem, 1vw + 0.5rem, 1.6rem);
+$font-label: clamp(0.9rem, 0.9vw + 0.3rem, 1.4rem);
+$font-small: clamp(0.65rem, 0.8vw + 0.25rem, 1.2rem);
+
+/* =========================== */
+/*  DISCRETE FONT SIZES        */
+/* =========================== */
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 2rem;
+
+/* =========================== */
+/*  PILL ELEMENTS              */
+/* =========================== */
+$pill-height: clamp(36px, 6vw, 48px);
+$pill-padding-x: clamp(16px, 5vw, 28px);
+$pill-radius: 9999px;
+
+/* =========================== */
+/*  COLOR PALETTE              */
+/* =========================== */
+$dark: #282c35;
+$gray: #aaa;
+$white: #fff;
+$overlay-bg: rgba(0, 0, 0, 0.8);
+$hover-bg: rgba(255, 255, 255, 0.9);
+$error-color: #ff4d4f;
+$success-color: #28a745;
+$color-primary: #0070f3;
+$color-text-primary: #333;
+
+/* =========================== */
+/*  BORDERS / RADIUS           */
+/* =========================== */
+$border-radius-xs: 4px;
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 18px;
+$border-radius-xl: 25px;
+$border-radius-pill: 9999px;
+$border-radius-circle: 50%;
+$border-radius-full: 50%;
+$border-strong: #ffffff;
+$border-subtle: rgba(255, 255, 255, 0.3);
+
+/* =========================== */
+/*  SPACING                    */
+/* =========================== */
+$spacing-md-compact: 0.8rem;
+$spacing-xxs: 0.125rem;
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1.3rem;
+$spacing-lg: 2rem;
+$spacing-xl: 4rem;
+
+/* Optional grouped spacing */
+$section-padding: 4rem;
+$card-padding: 1rem;
+
+/* =========================== */
+/*  Z-INDEX                    */
+/* =========================== */
+$z-dropdown: 1000;
+$z-button: 10;
+$z-navigation: 100;
+$z-overlay: 2000;
+$z-modal: 3000;
+$z-header: 50;
+$z-preloader: 9999;
+
+/* Back-compat short aliases */
+$z-drop: $z-dropdown;
+$z-btn: $z-button;
+$z-nav: $z-navigation;
+$z-over: $z-overlay;
+$z-mod: $z-modal;
+$z-head: $z-header;
+$z-pre: $z-preloader;
+
+/* =========================== */
+/*  TRANSITIONS                */
+/* =========================== */
+$t-fast: 0.15s;
+$t-normal: 0.3s;
+$t-slow: 0.5s;
+$t-slower: 0.7s;
+$t-slowest: 1s;
+
+/* Back-compat long aliases */
+$transition-fast: $t-fast;
+$transition-normal: $t-normal;
+$transition-slow: $t-slow;
+$transition-slower: $t-slower;
+$transition-slowest: $t-slowest;
+
+/* =========================== */
+/*  SCALE TRANSFORMS           */
+/* =========================== */
+$scale-hover: 1.05;
+$scale-active: 0.95;
+
+/* =========================== */
+/*  INPUTS (text/textarea/phone)
+/*  Unified tokens for all fields
+/* =========================== */
+
+/* --- Sizing & spacing --- */
+$input-height-min: clamp(48px, 7vh, 64px);
+$input-pad-x: clamp(14px, 2vw, 18px);
+$input-pad-y: clamp(10px, 1.8vh, 15px);
+$input-radius: $border-radius-xl;
+$input-font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+
+/* Size variants (optional) */
+$input-font-size-sm: clamp(0.8rem, 0.75rem + 0.15vw, 0.9rem);
+$input-font-size-lg: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
+
+/* --- Colors & surfaces --- */
+$input-surface: rgba(0, 0, 0, 0.8);
+$input-surface-hover: rgba(0, 0, 0, 0.8); /* normally border changes instead */
+$input-color: $white;
+$input-placeholder-color: rgba(255, 255, 255, 0.65); /* visible placeholders (e.g., search) */
+
+/* --- Borders & focus ring --- */
+$input-border-default: $border-subtle; /* rgba(255,255,255,0.3) */
+$input-border-hover: rgba(255, 255, 255, 0.4);
+$input-border-focus: $border-strong; /* #fff */
+$input-focus-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+
+/* --- Disabled & Error --- */
+$input-disabled-opacity: 0.6;
+$input-error-border: rgba($error-color, 0.55);
+$input-error-text: rgba($error-color, 0.8);
+$input-error-label: rgba($error-color, 0.8);
+
+/* --- Label (floating) --- */
+$input-label-color: rgba(255, 255, 255, 0.95);
+$input-label-color-focused: $border-strong; /* matches focus border */
+$input-label-top: 50%; /* base resting position */
+$input-label-scale: 0.98; /* set to 1 if you don't want shrink */
+$input-label-left-float-offset: -2px; /* "- 2px" nudge when floated */
+
+/* Notch behind floating label (cuts the border line) */
+$input-label-notch-bg: rgba(0, 0, 0, 0.7); /* fallback if var(--surface) absent */
+$input-label-notch-radius: $border-radius-xs;
+$input-label-notch-margin-x: 0.35rem;
+
+/* --- Motion & easing --- */
+$input-ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1);
+$input-transition-fast: $t-fast; /* 0.15s */
+$input-transition-normal: $t-normal; /* 0.3s */
+
+/* =========================== */
+/*  PHONE INPUT (country area)
+/* =========================== */
+
+/* Left block (flag + dial code) */
+$phone-country-width: 120px;
+$phone-country-width-sm: 100px;
+$phone-country-width-xs: 90px;
+$phone-country-divider: $border-subtle; /* right border on selector */
+
+/* Arrow icon in selector */
+$phone-arrow-color: rgba(255, 255, 255, 0.6);
+
+/* Country selector interactions */
+$phone-country-hover-bg: rgba(255, 255, 255, 0.05);
+$phone-country-focus-outline: $color-primary;
+
+/* =========================== */
+/*  PHONE DROPDOWN PANEL
+/* =========================== */
+
+$phone-dropdown-bg: rgba(21, 27, 35, 0.95);
+$phone-dropdown-border: rgba(255, 255, 255, 0.2);
+$phone-dropdown-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+$phone-dropdown-padding-y: $spacing-xs;
+
+/* Search field inside dropdown */
+$phone-search-bg: rgba(0, 0, 0, 0.3);
+$phone-search-border: rgba(255, 255, 255, 0.2);
+$phone-search-placeholder: rgba(255, 255, 255, 0.5);
+
+/* Country option */
+$phone-option-hover-bg: rgba(255, 255, 255, 0.1);
+$phone-option-selected-bg: rgba(0, 112, 243, 0.2);
+$phone-option-selected-accent: $color-primary;
+
+/* =========================== */
+/*  ACCESSIBILITY / STATES
+/* =========================== */
+
+$input-outline-focus-visible: 2px solid #{$color-primary};
+$input-outline-offset: -2px;
+
+/* ===== Layout helpers for gallery/hero ===== */
+$layout-content-width: 92vw;
+$layout-max-content: 1400px;
+$layout-hero-edge-inset-min: $card-padding; /* 1rem */
+$layout-hero-edge-inset-max: $spacing-xl; /* 4rem */
+
+/* ===== Spacing helper missing in set (12px) ===== */
+$spacing-smplus: 0.75rem;
+
+/* ===== Media sizing ===== */
+$media-hero-max-height: 900px;
+
+/* ===== Thumbs ===== */
+$thumb-width: 6rem; /* 96px */
+$thumb-height: 4rem; /* 64px */
+$thumb-width-sm: 3.5rem; /* 56px */
+$thumb-height-sm: 2.5rem; /* 40px */
+$thumb-active-ring: 3px;
+$thumb-active-ring-sm: 1.5px;
+$thumb-active-ring-color: rgba($white, 0.9);
+
+/* ===== Mobile layout offset used by thumbs ===== */
+$gallery-mobile-bottom-offset: 30%;
+
+/* ===== Transition helper for 0.2s (keeps your feel) ===== */
+$t-quick: 0.2s;
