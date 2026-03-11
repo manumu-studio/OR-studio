@@ -1,6 +1,6 @@
 // Environment variable validation using Zod.
-// Validates required vars at startup — fails fast with clear error messages.
-// Extended by future packets as new env vars are added.
+// Validates lazily on first access — avoids failing during Next.js build's static page collection
+// when MONGODB_URI and other vars may not be available. Extended by future packets as new vars are added.
 
 import { z } from 'zod';
 
@@ -14,7 +14,24 @@ const envSchema = z.object({
 
 export type Env = z.infer<typeof envSchema>;
 
-function validateEnv(): Env {
+let cached: Env | null = null;
+
+function getEnv(): Env {
+  if (cached) return cached;
+
+  // During Next.js build's static page collection, env vars may be unavailable.
+  // Return placeholders so the config can load; real validation happens at runtime.
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    cached = {
+      MONGODB_URI: 'mongodb://localhost:27017/build',
+      PAYLOAD_SECRET: 'build-placeholder',
+      CLOUDINARY_CLOUD_NAME: 'build',
+      CLOUDINARY_API_KEY: 'build',
+      CLOUDINARY_API_SECRET: 'build',
+    };
+    return cached;
+  }
+
   const result = envSchema.safeParse(process.env);
 
   if (!result.success) {
@@ -29,7 +46,12 @@ function validateEnv(): Env {
     throw new Error(`❌ Invalid environment variables:\n${message}`);
   }
 
-  return result.data;
+  cached = result.data;
+  return cached;
 }
 
-export const env = validateEnv();
+export const env = new Proxy({} as Env, {
+  get(_, prop: string) {
+    return getEnv()[prop as keyof Env];
+  },
+});
