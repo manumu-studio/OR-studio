@@ -1,64 +1,64 @@
-// NavbarLinks styles — nav list, items, links, and active state
-@use '@/styles/partials/ORTokens' as or;
+// NavbarLinks styles — full-screen overlay nav list (always vertical, v1 behavior)
+@use '@/styles/partials/ORTokens' as *;
 
+// — Nav list (always centered column — overlay only)
 .navList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: or.$spacing-lg;
+  gap: 24px;
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-bottom: 10rem;
+  position: relative;
+  z-index: 10;
 
-  // Desktop: horizontal layout
-  @media (min-width: 769px) {
-    flex-direction: row;
-    gap: or.$spacing-xl;
+  @media (max-width: 768px) {
+    margin-top: 25px;
+    gap: 20px;
   }
 }
 
+// — Nav item
 .navItem {
   position: relative;
 }
 
+// — Nav link
 .navLink {
-  font-family: or.$font-family-base;
-  font-size: or.$font-size-lg;
-  font-weight: or.$font-weight-light;
+  font-family: $font-family-base;
+  font-size: 30px;
+  font-weight: $font-weight-light;
   color: var(--text-color, #fff);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  transition: opacity #{or.$t-fast} ease-in-out;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
-    opacity: 0.7;
+    transform: scale(1.05);
   }
 
   &:focus-visible {
     outline: 2px solid var(--border-strong);
     outline-offset: 4px;
-    border-radius: or.$border-radius-xs;
+    border-radius: $border-radius-xs;
   }
 
-  // Desktop font size
-  @media (min-width: 769px) {
-    font-size: or.$font-size-sm;
+  @media (max-width: 768px) {
+    font-size: 22px;
   }
 }
 
-// Active link indicator
+// — Active link indicator
 .active .navLink {
-  opacity: 1;
-  font-weight: or.$font-weight-regular;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--text-color, #fff);
+  @media (max-width: 768px) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   }
 }

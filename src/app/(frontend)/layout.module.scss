@@ -1,22 +1,22 @@
 // Frontend layout styles — skip-to-content link and layout utilities
-@use '@/styles/partials/ORTokens' as or;
+@use '@/styles/partials/ORTokens' as *;
 
 .skipToContent {
   position: absolute;
   top: -100%;
   left: 0;
-  z-index: or.$z-preloader + 1;
-  padding: #{or.$spacing-sm} #{or.$spacing-md};
-  background: or.$white;
-  color: or.$dark;
-  font-weight: or.$font-weight-bold;
+  z-index: $z-preloader + 1;
+  padding: #{$spacing-sm} #{$spacing-md};
+  background: $white;
+  color: $dark;
+  font-weight: $font-weight-bold;
   text-decoration: none;
-  border-radius: 0 0 #{or.$border-radius-sm} 0;
-  transition: top #{or.$t-fast} ease-in-out;
+  border-radius: 0 0 #{$border-radius-sm} 0;
+  transition: top #{$t-fast} ease-in-out;
 
   &:focus-visible {
     top: 0;
-    outline: 2px solid #{or.$color-primary};
+    outline: 2px solid #{$color-primary};
     outline-offset: 2px;
   }
 }

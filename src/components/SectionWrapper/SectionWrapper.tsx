@@ -71,14 +71,8 @@ export function SectionWrapper({
       className={`${styles.sectionWrapper} ${className}`}
       role={role}
       aria-label={ariaLabel}
-      initial={skipAnimation ? false : { opacity: 0, y: 40 }}
-      animate={
-        skipAnimation
-          ? { opacity: 1, y: 0 }
-          : isInView
-            ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 40 }
-      }
+      initial={skipAnimation ? false : { opacity: 0 }}
+      animate={skipAnimation ? { opacity: 1 } : isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: skipAnimation ? 0 : duration, ease: 'easeOut' }}
     >
       {children}

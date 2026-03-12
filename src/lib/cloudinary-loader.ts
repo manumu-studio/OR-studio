@@ -24,3 +24,5 @@ export function cloudinaryLoader({ src, width, quality }: ImageLoaderProps): str
 
   return `${beforeUpload}${transforms},${afterUpload}`;
 }
+
+export default cloudinaryLoader;

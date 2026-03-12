@@ -1,5 +1,5 @@
 // LogoPreloader styles — full-screen overlay container
-@use '@/styles/partials/ORTokens' as or;
+@use '@/styles/partials/ORTokens' as *;
 
 .preloaderContainer {
   position: fixed;
@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--background-color, #151515);
-  z-index: or.$z-preloader;
+  z-index: $z-preloader;
 }
 
 .logo {

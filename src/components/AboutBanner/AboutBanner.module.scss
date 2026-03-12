@@ -1,0 +1,60 @@
+// AboutBanner styles — full-viewport dark section with centered text and CTA button (v1 design).
+
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color, #151515);
+}
+
+.content {
+  max-width: 65%;
+  padding: 0 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
+}
+
+.text {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+// — "More about us" button (v1 style: transparent bg, white border, pill shape)
+.button {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 0.03rem solid rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.08);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 4px;
+  }
+}

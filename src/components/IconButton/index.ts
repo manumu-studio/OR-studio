@@ -1,3 +1,3 @@
 // IconButton barrel export
 export { IconButton } from './IconButton';
-export type { IconButtonProps, IconButtonVariant } from './IconButton.types';
+export type { IconButtonProps, IconButtonDirection } from './IconButton.types';

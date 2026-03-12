@@ -3,34 +3,35 @@
 
 import { motion, type Variants } from 'framer-motion';
 
+import { useMediaQuery } from '@/lib/useMediaQuery';
 import { useNav } from '@/providers/NavProvider';
 
 import type { HamburgerToggleButtonProps } from './HamburgerToggleButton.types';
 import styles from './HamburgerToggleButton.module.scss';
 
 export function HamburgerToggleButton({
-  gapBetweenLines = 6,
-  lineWidth = '30px',
+  gapBetweenLines,
+  lineWidth: _lineWidth,
   className = '',
 }: HamburgerToggleButtonProps) {
   const { isNavOpen, toggleNav } = useNav();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const gap = gapBetweenLines ?? (isMobile ? 6 : 8);
 
-  // — Animation variants for top line
+  // — v1 pattern: top in style (plain CSS), Framer only for rotate + y + opacity
   const topLineVariants: Variants = {
-    closed: { rotate: 0, y: '-50%', top: `calc(50% - ${String(gapBetweenLines)}px)` },
-    open: { rotate: 45, y: '-50%', top: '50%' },
+    closed: { rotate: 0, x: '-50%', y: '-50%' },
+    open: { rotate: 45, x: '-50%', y: '-50%' },
   };
 
-  // — Animation variants for middle line
   const middleLineVariants: Variants = {
-    closed: { opacity: 1 },
-    open: { opacity: 0 },
+    closed: { opacity: 1, x: '-50%', y: '-50%' },
+    open: { opacity: 0, x: '-50%', y: '-50%' },
   };
 
-  // — Animation variants for bottom line
   const bottomLineVariants: Variants = {
-    closed: { rotate: 0, y: '-50%', top: `calc(50% + ${String(gapBetweenLines)}px)` },
-    open: { rotate: -45, y: '-50%', top: '50%' },
+    closed: { rotate: 0, x: '-50%', y: '-50%' },
+    open: { rotate: -45, x: '-50%', y: '-50%' },
   };
 
   const animationState = isNavOpen ? 'open' : 'closed';
@@ -44,30 +45,34 @@ export function HamburgerToggleButton({
       aria-expanded={isNavOpen}
       aria-controls="main-navigation"
     >
-      {/* Top line */}
+      {/* Top line — v1: top in style, Framer for rotate + y; width from CSS (responsive) */}
       <motion.span
         className={styles.line}
-        style={{ width: lineWidth }}
+        style={{
+          top: isNavOpen ? '50%' : `calc(50% - ${gap}px)`,
+        }}
         variants={topLineVariants}
         initial="closed"
         animate={animationState}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       />
 
-      {/* Middle line */}
+      {/* Middle line — v1: no top (centers naturally), Framer for opacity only */}
       <motion.span
         className={styles.line}
-        style={{ width: lineWidth }}
+        style={{ top: '50%' }}
         variants={middleLineVariants}
         initial="closed"
         animate={animationState}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       />
 
-      {/* Bottom line */}
+      {/* Bottom line — v1: top in style, Framer for rotate + y */}
       <motion.span
         className={styles.line}
-        style={{ width: lineWidth }}
+        style={{
+          top: isNavOpen ? '50%' : `calc(50% + ${gap}px)`,
+        }}
         variants={bottomLineVariants}
         initial="closed"
         animate={animationState}

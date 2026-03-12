@@ -1,27 +1,38 @@
-// IconButton — reusable button with icon slot and Framer Motion interactions
+// IconButton — positioned icon button with built-in arrow/zoom (v1 port)
 'use client';
-
-import { motion } from 'framer-motion';
 
 import type { IconButtonProps } from './IconButton.types';
 import styles from './IconButton.module.scss';
 
 export function IconButton({
-  icon,
+  direction = 'down',
   onClick,
   ariaLabel,
   className = '',
-  variant = 'default',
   disabled = false,
   width = 2.5,
   height = 2.5,
+  icon,
 }: IconButtonProps) {
-  const variantClass = styles[variant] ?? '';
+  const directionClass = direction ? (styles[direction] ?? '') : '';
+  const computedAriaLabel = ariaLabel ?? (direction === 'close' ? 'Close' : `Scroll ${direction}`);
+
+  const renderContent = () => {
+    if (icon) return icon;
+    if (direction === 'close') {
+      return (
+        <span className={styles.zoomSymbol} aria-hidden="true">
+          ×
+        </span>
+      );
+    }
+    return <span className={styles.arrowIcon} aria-hidden="true" />;
+  };
 
   return (
-    <motion.button
+    <button
       type="button"
-      className={`${styles.iconButton} ${variantClass} ${disabled ? styles.disabled : ''} ${className}`}
+      className={`${styles.iconButton} ${directionClass} ${className}`.trim()}
       style={
         {
           '--button-width': `${String(width)}rem`,
@@ -29,16 +40,11 @@ export function IconButton({
         } as React.CSSProperties
       }
       disabled={disabled}
-      aria-label={ariaLabel}
+      aria-label={computedAriaLabel}
       aria-disabled={disabled}
       onClick={disabled ? undefined : onClick}
-      whileHover={disabled ? undefined : { scale: 1.05 }}
-      whileTap={disabled ? undefined : { scale: 0.95 }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
     >
-      <span className={styles.iconContent} aria-hidden="true">
-        {icon}
-      </span>
-    </motion.button>
+      {renderContent()}
+    </button>
   );
 }
