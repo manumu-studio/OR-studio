@@ -1,0 +1,52 @@
+// IconButton styles — icon button with variant support
+@use '@/styles/partials/ORTokens' as or;
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--button-width, 2.5rem);
+  height: var(--button-height, 2.5rem);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-color, #fff);
+  cursor: pointer;
+  border-radius: or.$border-radius-circle;
+  transition: background-color or.$t-fast ease-in-out;
+
+  &:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 2px;
+  }
+}
+
+// — Variant: ghost (subtle hover background)
+.ghost {
+  &:hover:not(.disabled) {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+// — Variant: outline (bordered)
+.outline {
+  border: 1px solid var(--border-default, rgba(255, 255, 255, 0.35));
+
+  &:hover:not(.disabled) {
+    border-color: var(--border-strong);
+  }
+}
+
+// — Disabled state
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+// — Icon content wrapper
+.iconContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
