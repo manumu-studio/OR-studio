@@ -94,16 +94,16 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'site-settings': SiteSettingsGlobal;
-    'home-page': HomePageGlobal;
-    'contact-page': ContactPageGlobal;
-    'about-page': AboutPageGlobal;
+    'site-settings': SiteSetting;
+    'home-page': HomePage;
+    'contact-page': ContactPage;
+    'about-page': AboutPage;
   };
   globalsSelect: {
-    'site-settings': SiteSettingsGlobalSelect<false> | SiteSettingsGlobalSelect<true>;
-    'home-page': HomePageGlobalSelect<false> | HomePageGlobalSelect<true>;
-    'contact-page': ContactPageGlobalSelect<false> | ContactPageGlobalSelect<true>;
-    'about-page': AboutPageGlobalSelect<false> | AboutPageGlobalSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -227,7 +227,13 @@ export interface Media {
 export interface Category {
   id: string;
   name: string;
+  /**
+   * Auto-generated from name
+   */
   slug: string;
+  /**
+   * Display order in frontend tabs (lower = first)
+   */
   order: number;
   updatedAt: string;
   createdAt: string;
@@ -241,9 +247,21 @@ export interface Category {
 export interface Project {
   id: string;
   title: string;
+  /**
+   * Auto-generated from title
+   */
   slug: string;
+  /**
+   * Assign to one category (Residential, Commercial, etc.)
+   */
   category: string | Category;
+  /**
+   * Primary display image (shown in grid cards and hero)
+   */
   featuredImage: string | Media;
+  /**
+   * Additional images shown in the lightbox gallery
+   */
   gallery?:
     | {
         image: string | Media;
@@ -251,7 +269,13 @@ export interface Project {
       }[]
     | null;
   description?: string | null;
+  /**
+   * Display order within category (lower = first)
+   */
   order: number;
+  /**
+   * Only published projects are visible on the site
+   */
   status: 'draft' | 'published';
   updatedAt: string;
   createdAt: string;
@@ -497,115 +521,18 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collections_widget".
- */
-export interface CollectionsWidget {
-  data?: {
-    [k: string]: unknown;
-  };
-  width: 'full';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "auth".
- */
-export interface Auth {
-  [k: string]: unknown;
-}
-
-/**
- * All images uploaded here are stored in Cloudinary CDN.
- */
-export interface Media {
-  id: string;
-  alt: string;
-  caption?: string | null;
-  orientation?: ('landscape' | 'portrait' | 'square') | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    hero?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    gallery?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
-}
-
-/** Project categories shown as filter tabs on the Works page. */
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  order: number;
-  updatedAt: string;
-  createdAt: string;
-}
-
-/** Portfolio projects displayed on the Works page. */
-export interface Project {
-  id: string;
-  title: string;
-  slug: string;
-  category: string | Category;
-  featuredImage: string | Media;
-  gallery?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  description?: string | null;
-  order: number;
-  status: 'draft' | 'published';
-  updatedAt: string;
-  createdAt: string;
-}
-
-/**
  * Site-wide settings: branding, contact email, social links, and navigation.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
  */
-export interface SiteSettingsGlobal {
+export interface SiteSetting {
   id: string;
   siteName: string;
-  logo?: (string | Media) | null;
+  logo?: (string | null) | Media;
+  /**
+   * Destination email for contact form submissions.
+   */
   contactEmail: string;
   socialLinks?:
     | {
@@ -625,11 +552,13 @@ export interface SiteSettingsGlobal {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
-
 /**
  * Home page content: hero section, about preview, and featured project banners.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
  */
-export interface HomePageGlobal {
+export interface HomePage {
   id: string;
   heroTitle: string;
   heroSubtitle?: string | null;
@@ -637,12 +566,18 @@ export interface HomePageGlobal {
     image: string | Media;
     id?: string | null;
   }[];
-  aboutBanner?: {
+  /**
+   * About section preview shown on the home page.
+   */
+  aboutBanner: {
     text: string;
     linkLabel?: string | null;
     linkUrl?: string | null;
-    image?: (string | Media) | null;
+    image?: (string | null) | Media;
   };
+  /**
+   * Up to 3 featured projects displayed as banners on the home page.
+   */
   workBanners?:
     | {
         project: string | Project;
@@ -653,32 +588,56 @@ export interface HomePageGlobal {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
-
 /**
  * Contact page content: heading, subtitle, and background image.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
  */
-export interface ContactPageGlobal {
+export interface ContactPage {
   id: string;
   headerText: string;
   subtitleText?: string | null;
-  backgroundImage?: (string | Media) | null;
+  backgroundImage?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
-
 /**
  * About page content: heading, body text, and background image.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
  */
-export interface AboutPageGlobal {
+export interface AboutPage {
   id: string;
   heading: string;
-  sectionText?: Record<string, unknown> | null;
-  backgroundImage?: (string | Media) | null;
+  /**
+   * Main body text for the about page. Supports paragraphs, bold, italic, links, and lists.
+   */
+  sectionText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  backgroundImage?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
-
-export interface SiteSettingsGlobalSelect<T extends boolean = true> {
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   logo?: T;
   contactEmail?: T;
@@ -699,9 +658,13 @@ export interface SiteSettingsGlobalSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  globalType?: T;
 }
-
-export interface HomePageGlobalSelect<T extends boolean = true> {
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
   heroTitle?: T;
   heroSubtitle?: T;
   heroImages?:
@@ -727,22 +690,48 @@ export interface HomePageGlobalSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  globalType?: T;
 }
-
-export interface ContactPageGlobalSelect<T extends boolean = true> {
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
   headerText?: T;
   subtitleText?: T;
   backgroundImage?: T;
   updatedAt?: T;
   createdAt?: T;
+  globalType?: T;
 }
-
-export interface AboutPageGlobalSelect<T extends boolean = true> {
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
   heading?: T;
   sectionText?: T;
   backgroundImage?: T;
   updatedAt?: T;
   createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
 }
 
 declare module 'payload' {

@@ -18,7 +18,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,json}\"",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "prepare": "husky"
+    "prepare": "husky",
+    "seed": "tsx src/seed/index.ts"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.79.0",
@@ -52,9 +53,9 @@
     "lint-staged": "^16.3.3",
     "prettier": "^3.8.1",
     "sass": "^1.80.0",
+    "tsx": "^4.21.0",
     "typescript": "5.7.3"
   },
-  "packageManager": "pnpm@9.12.3",
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
     "pnpm": "^9 || ^10"
