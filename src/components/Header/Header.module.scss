@@ -1,55 +1,73 @@
-// Header styles — fixed header, responsive nav, overlay
-@use '@/styles/partials/ORTokens' as or;
+// Header styles — absolute header, hamburger always visible, full-screen overlay nav
+@use '@/styles/partials/ORTokens' as *;
 
-$breakpoint-mobile: 768px;
-
+// — Header bar
 .header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: #{or.$spacing-md} #{or.$spacing-lg};
-  z-index: or.$z-header;
+  align-items: center;
+  padding: 1.5rem;
+  overflow: visible;
+  pointer-events: all;
+  z-index: $z-header;
+
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+  }
 }
 
 // — Logo container
 .logoContainer {
+  height: 48px;
+  width: 48px;
   display: flex;
   align-items: center;
-  z-index: or.$z-header + 1;
-}
+  z-index: $z-dropdown;
+  cursor: pointer;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 
-// — Desktop nav (full link list)
-.desktopNav {
-  display: none;
-
-  @media (min-width: #{$breakpoint-mobile + 1}) {
-    display: flex;
-    align-items: center;
+  @media (max-width: 768px) {
+    height: 32px;
+    width: 32px;
+    justify-content: flex-start;
+    place-items: center;
   }
 }
 
-// — Mobile hamburger button
-.mobileControls {
+// — Hamburger button (always visible above overlay — v1 behavior)
+.hamburgerContainer {
   display: flex;
   align-items: center;
-  z-index: or.$z-header + 1;
-
-  @media (min-width: #{$breakpoint-mobile + 1}) {
-    display: none;
-  }
+  z-index: $z-overlay;
+  pointer-events: auto;
+  padding-top: 4px;
 }
 
-// — Full-screen mobile nav overlay
+// — Full-screen nav overlay with backdrop blur
 .navOverlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-color, #151515);
-  z-index: or.$z-navigation;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: $z-dropdown;
+  pointer-events: all;
+  padding-top: 80px;
+}
+
+// — Hide header when modal is open (lightbox, etc.)
+:global(body.modal-open) .header {
+  z-index: 0 !important;
 }

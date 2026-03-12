@@ -1,31 +1,34 @@
 # Journal Entry 3
 
-**Date:** 2026-03-11
+**Date:** 2025-03-12
 
 ---
 
-## Categories & Projects Collections
+## Home Page Full Frontend
 
-Added the core content types for the Works page. Categories group projects by type; Projects hold portfolio items with images, category, and publication status.
+Complete landing page with CMS-driven hero carousel, about banner, and featured work banners. Replaces v1's static JSON with Payload HomePage global.
 
 ### What Was Built
 
-- **Categories collection** — name (unique), slug (auto-generated from name), order. Public read, auth write.
-- **Projects collection** — title, slug (auto), category (→ categories), featuredImage (→ media), gallery (array → media), description, order, status (draft | published). Published-only public read.
-- **Slug hooks** — beforeValidate generates kebab-case slug from name/title when slug is empty.
-- **payload-types.ts** — Category, Project, CategoriesSelect, ProjectsSelect interfaces.
+- **Home page** — Server Component fetches HomePage global via `payload.findGlobal()`, passes to ScrollSections
+- **BannerImage** — Reusable full-viewport background image with fade-in, Cloudinary loader, prefers-reduced-motion
+- **LandingPageSection** — Hero with auto-rotating images (4s), Framer Motion crossfade, pause on hover/focus
+- **AboutBanner** — CMS about text over background image, scroll-triggered reveal
+- **WorkBanner** — Featured project sections (max 3), link to /works
+- **ScrollSections** — Orchestrator with scroll-snap (y mandatory), full-viewport sections
 
 ### Decisions
 
-- `featuredImage` separate from `gallery` — clearer than v1's array-position convention
-- `status` as select (draft | published) — simple, no full versioning
-- `views` and `storyline` dropped — dead fields in v1
+- `force-dynamic` on home page — avoids MongoDB connection during build
+- Type guards (isMedia, isProject) for safe Payload relationship narrowing
+- heroImages structure: array of `{ image: Media }` — extract Media for LandingPageSection
 
 ### Notes
 
-- Build requires Node 20+ (same as Packet 01)
-- Categories will be seeded in Packet 04
+- Build requires Node 20+ (same as Packet 6)
+- HomePage global must be seeded for content
+- Carousel pauses on hover/focus per WCAG 2.2.2
 
 ### Next Steps
 
-- CMS Globals (Packet 03)
+- Contact + About pages (Packet 8)

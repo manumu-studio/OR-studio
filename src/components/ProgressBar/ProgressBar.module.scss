@@ -1,0 +1,19 @@
+// ProgressBar styles — carousel progress segment (v1 port).
+
+@use '@/styles/partials/ORTokens' as *;
+
+.progressWrapper {
+  flex: 1 1 0%;
+  height: 4px;
+  margin: 0 2px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.progressBar {
+  height: 100%;
+  background: #{$white};
+  width: 0%;
+}

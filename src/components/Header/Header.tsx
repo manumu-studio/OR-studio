@@ -1,4 +1,4 @@
-// Header — main navigation bar with logo, links (desktop), hamburger (mobile), and nav overlay
+// Header — navigation bar with logo and hamburger toggle (full-screen overlay nav at all sizes)
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { AnimatedLogo } from '@/components/AnimatedLogo';
 import { HamburgerToggleButton } from '@/components/HamburgerToggleButton';
 import { NavbarLinks } from '@/components/NavbarLinks';
+import { useMediaQuery } from '@/lib/useMediaQuery';
 import { useNav } from '@/providers/NavProvider';
 
 import type { HeaderProps } from './Header.types';
@@ -15,6 +16,7 @@ import styles from './Header.module.scss';
 export function Header({ className = '' }: HeaderProps) {
   const { isNavOpen, closeNav } = useNav();
   const navRef = useRef<HTMLElement>(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // — Close nav on Escape key
   useEffect(() => {
@@ -38,26 +40,21 @@ export function Header({ className = '' }: HeaderProps) {
   return (
     <motion.header
       className={`${styles.header} ${className}`}
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{ duration: 0.1 }}
     >
       {/* Logo — hides when nav overlay is open (v1 behavior) */}
       <div className={styles.logoContainer}>
-        {!isNavOpen && <AnimatedLogo size={50} strokeWidth={1} />}
+        {!isNavOpen && <AnimatedLogo size={isMobile ? 32 : 48} strokeWidth={1} />}
       </div>
 
-      {/* Desktop navigation links (hidden on mobile via CSS) */}
-      <nav className={styles.desktopNav} aria-label="Main navigation">
-        <NavbarLinks />
-      </nav>
-
-      {/* Hamburger button (hidden on desktop via CSS) */}
-      <div className={styles.mobileControls}>
-        <HamburgerToggleButton gapBetweenLines={6} lineWidth="28px" />
+      {/* Hamburger button — always visible at all screen sizes (v1 behavior) */}
+      <div className={styles.hamburgerContainer}>
+        <HamburgerToggleButton />
       </div>
 
-      {/* Mobile nav overlay */}
+      {/* Full-screen nav overlay with backdrop blur */}
       <AnimatePresence mode="wait">
         {isNavOpen && (
           <motion.nav
@@ -67,8 +64,8 @@ export function Header({ className = '' }: HeaderProps) {
             initial={{ opacity: 0, y: '100%' }}
             animate={{ opacity: 1, y: '0%' }}
             exit={{ opacity: 0, y: '100%' }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-            aria-label="Mobile navigation"
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            aria-label="Main navigation"
           >
             <NavbarLinks />
           </motion.nav>
