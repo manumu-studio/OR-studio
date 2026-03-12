@@ -7,6 +7,9 @@ import configPromise from '@payload-config';
 import type { Category, Project } from '@/payload-types';
 import { WorksControl } from '@/components/WorksControl';
 
+/** Force dynamic rendering — avoids MongoDB connection during build (CI has no DB). */
+export const dynamic = 'force-dynamic';
+
 export function generateMetadata(): Metadata {
   return {
     title: 'Works | OR Studio',
