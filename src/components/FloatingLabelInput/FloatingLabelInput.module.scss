@@ -1,0 +1,89 @@
+// FloatingLabelInput styles — floating label animation via :placeholder-shown.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.floatingLabelInput {
+  position: relative;
+  margin-bottom: 1rem;
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 1.25rem 0.75rem 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-border, #444);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    resize: vertical;
+
+    &:focus {
+      border-color: var(--color-accent);
+    }
+
+    // Floating label trigger — placeholder must be ' ' (space)
+    &:placeholder-shown + label {
+      top: 50%;
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      top: 0.35rem;
+      font-size: 0.75rem;
+      opacity: 1;
+      color: var(--color-accent);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+
+    &:placeholder-shown + label {
+      top: 1rem;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #999);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    transform-origin: left top;
+  }
+
+  &.invalid {
+    input,
+    textarea {
+      border-color: var(--color-error, #e53e3e);
+    }
+
+    label {
+      color: var(--color-error, #e53e3e);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.requiredIndicator {
+  color: var(--color-error, #e53e3e);
+  margin-left: 2px;
+}
+
+.errorText {
+  min-height: 1.25rem;
+  font-size: 0.75rem;
+  color: var(--color-error, #e53e3e);
+  padding-top: 0.25rem;
+}

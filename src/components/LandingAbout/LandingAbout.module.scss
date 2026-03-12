@@ -1,0 +1,112 @@
+// LandingAbout styles — two-column about section with text and image.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.aboutSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.aboutWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.richTextBody {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: var(--color-text-muted, #aaa);
+  line-height: 1.7;
+
+  // Payload Lexical rich text renders <p>, <strong>, <em>, <a>, <ul>, <ol>
+  p {
+    margin: 0 0 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.contactLink {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+}
+
+.right {
+  position: relative;
+}
+
+.imageWrapper {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.bgImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}

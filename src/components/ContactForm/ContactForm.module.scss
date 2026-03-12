@@ -1,0 +1,10 @@
+// ContactForm styles — wrapper for the dynamic form.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.contactForm {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1rem;
+}
