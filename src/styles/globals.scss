@@ -18,6 +18,13 @@
   --border-default: rgba(255, 255, 255, 0.35);
   --border-strong: rgba(255, 255, 255, 0.85);
   --error: rgba(255, 107, 107, 0.9);
+  /* Works page / components */
+  --color-text-primary: var(--text-color);
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-accent: or.$color-primary;
+  --color-surface: rgba(255, 255, 255, 0.08);
+  --color-surface-hover: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(255, 255, 255, 0.25);
 }
 
 [data-theme='light'] {

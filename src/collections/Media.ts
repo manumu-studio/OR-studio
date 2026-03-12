@@ -48,5 +48,21 @@ export const Media: CollectionConfig = {
         { label: 'Square', value: 'square' },
       ],
     },
+    {
+      name: 'width',
+      type: 'number',
+      required: false,
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'height',
+      type: 'number',
+      required: false,
+      admin: {
+        hidden: true,
+      },
+    },
   ],
 };

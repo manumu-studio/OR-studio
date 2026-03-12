@@ -13,7 +13,6 @@ const toSlug = (value: string): string =>
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-// Public users only see published projects; authenticated users see all
 const readAccess: Access = ({ req }) => {
   if (req.user) return true;
   return { status: { equals: 'published' as const } };
@@ -44,7 +43,6 @@ export const Projects: CollectionConfig = {
     ],
   },
   fields: [
-    // --- Core fields ---
     {
       name: 'title',
       type: 'text',
@@ -69,8 +67,6 @@ export const Projects: CollectionConfig = {
         description: 'Assign to one category (Residential, Commercial, etc.)',
       },
     },
-
-    // --- Images ---
     {
       name: 'featuredImage',
       type: 'upload',
@@ -95,15 +91,11 @@ export const Projects: CollectionConfig = {
         },
       ],
     },
-
-    // --- Content ---
     {
       name: 'description',
       type: 'textarea',
       required: false,
     },
-
-    // --- Display & Status ---
     {
       name: 'order',
       type: 'number',

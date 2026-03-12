@@ -1,0 +1,43 @@
+// Works page — Server Component that fetches categories and published projects
+// from Payload CMS and passes them to the WorksControl client orchestrator.
+
+import type { Metadata } from 'next';
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
+import type { Category, Project } from '@/payload-types';
+import { WorksControl } from '@/components/WorksControl';
+
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Works | OR Studio',
+    description:
+      'Explore our portfolio of architectural visualization projects — residential, commercial, and interior design renders by OR Studio.',
+  };
+}
+
+export default async function WorksPage() {
+  const payload = await getPayload({ config: configPromise });
+
+  const categoriesResult = await payload.find({
+    collection: 'categories',
+    sort: 'order',
+    limit: 100,
+  });
+
+  const projectsResult = await payload.find({
+    collection: 'projects',
+    where: {
+      status: { equals: 'published' },
+    },
+    sort: 'order',
+    limit: 100,
+    depth: 2,
+  });
+
+  return (
+    <WorksControl
+      categories={categoriesResult.docs as Category[]}
+      projects={projectsResult.docs as Project[]}
+    />
+  );
+}
