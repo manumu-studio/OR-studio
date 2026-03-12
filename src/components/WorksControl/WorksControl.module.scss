@@ -1,0 +1,18 @@
+// WorksControl styles — layout container for the Works page.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.worksSection {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  @media (min-width: 768px) {
+    padding: 3rem 2rem;
+  }
+}
+
+.controls {
+  margin-bottom: 2rem;
+}
