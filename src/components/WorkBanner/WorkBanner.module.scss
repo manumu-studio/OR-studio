@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-// — Progress bar container (v1: top of section)
+// — Progress bar container (v1: multiple bars, one per image, equal width)
 .progressContainer {
   position: absolute;
   top: 0.1rem;
@@ -20,6 +20,8 @@
   right: 0;
   z-index: 2;
   display: flex;
+  align-items: center;
+  gap: 6px;
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;

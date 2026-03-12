@@ -111,16 +111,17 @@ export function WorkBanner({ project, images, index }: WorkBannerProps) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* — Progress bar (v1, only when multiple images) */}
+      {/* — Progress bars (v1: one per image, active one fills over duration) */}
       {images.length > 1 && (
         <div className={styles.progressContainer}>
           {images.map((_, idx) => (
             <ProgressBar
               key={idx}
               isActive={idx === currentImageIndex}
-              duration={5500}
+              duration={AUTOPLAY_MS}
               onClick={() => handleProgressClick(idx)}
               ariaLabel={`Slide ${idx + 1} of ${images.length}`}
+              variant="light"
             />
           ))}
         </div>
@@ -189,7 +190,14 @@ export function WorkBanner({ project, images, index }: WorkBannerProps) {
       >
         <h2 className={styles.title}>{project.title}</h2>
         {project.description && <p className={styles.description}>{project.description}</p>}
-        <Link href="/works" className={styles.link}>
+        <Link
+          href={
+            typeof project.category === 'object' && project.category?.slug
+              ? `/works?category=${encodeURIComponent(project.category.slug)}`
+              : '/works'
+          }
+          className={styles.link}
+        >
           View Project
         </Link>
       </motion.div>

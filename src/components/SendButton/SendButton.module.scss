@@ -1,0 +1,70 @@
+// SendButton styles — circular button that expands on hover/focus.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.sendButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-accent);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible .focusRing {
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+}
+
+.focusRing {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrowIcon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+}
+
+.dirUp {
+  transform: rotate(-45deg);
+}
+
+.dirDown {
+  transform: rotate(135deg);
+}
+
+.dirLeft {
+  transform: rotate(-135deg);
+}
+
+.dirRight {
+  transform: rotate(45deg);
+}

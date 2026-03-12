@@ -18,7 +18,11 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default async function WorksPage() {
+type WorksPageProps = {
+  searchParams: Promise<{ category?: string }>;
+};
+
+export default async function WorksPage({ searchParams }: WorksPageProps) {
   const payload = await getPayload({ config: configPromise });
 
   const categoriesResult = await payload.find({
@@ -37,10 +41,14 @@ export default async function WorksPage() {
     depth: 2,
   });
 
+  const resolvedParams = await searchParams;
+  const initialCategorySlug = resolvedParams.category ?? null;
+
   return (
     <WorksControl
       categories={categoriesResult.docs as Category[]}
       projects={projectsResult.docs as Project[]}
+      initialCategorySlug={initialCategorySlug}
     />
   );
 }

@@ -1,12 +1,16 @@
-// ProgressBar types — props for the carousel progress indicator.
+// ProgressBar types — time-based linear progress indicator.
 
 export interface ProgressBarProps {
-  /** Whether this segment is currently active (animates 0→100%) */
-  isActive: boolean;
-  /** Animation duration in ms when active */
-  duration: number;
-  /** Click handler to jump to this slide */
-  onClick?: () => void;
+  /** Whether the progress animation is running */
+  readonly isActive: boolean;
+  /** Animation duration in milliseconds */
+  readonly duration: number;
+  /** Optional click handler */
+  readonly onClick?: () => void;
+  /** Additional CSS class name */
+  readonly className?: string;
   /** Accessible label */
-  ariaLabel?: string;
+  readonly ariaLabel?: string;
+  /** Light variant for hero/overlay (white track + fill) */
+  readonly variant?: 'default' | 'light';
 }

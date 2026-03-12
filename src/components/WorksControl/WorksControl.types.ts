@@ -7,6 +7,8 @@ export interface WorksControlProps {
   categories: Category[];
   /** Published projects from CMS, sorted by order (with populated relationships) */
   projects: Project[];
+  /** Initial category slug from URL (?category=slug) — syncs active tab on load */
+  initialCategorySlug?: string | null;
 }
 
 export interface PopulatedProject extends Omit<Project, 'featuredImage' | 'category' | 'gallery'> {
