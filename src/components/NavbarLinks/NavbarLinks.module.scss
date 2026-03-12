@@ -1,0 +1,64 @@
+// NavbarLinks styles — nav list, items, links, and active state
+@use '@/styles/partials/ORTokens' as or;
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: or.$spacing-lg;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  // Desktop: horizontal layout
+  @media (min-width: 769px) {
+    flex-direction: row;
+    gap: or.$spacing-xl;
+  }
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  font-family: or.$font-family-base;
+  font-size: or.$font-size-lg;
+  font-weight: or.$font-weight-light;
+  color: var(--text-color, #fff);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: opacity #{or.$t-fast} ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 4px;
+    border-radius: or.$border-radius-xs;
+  }
+
+  // Desktop font size
+  @media (min-width: 769px) {
+    font-size: or.$font-size-sm;
+  }
+}
+
+// Active link indicator
+.active .navLink {
+  opacity: 1;
+  font-weight: or.$font-weight-regular;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-color, #fff);
+  }
+}

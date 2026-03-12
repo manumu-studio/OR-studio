@@ -1,0 +1,55 @@
+// Header styles — fixed header, responsive nav, overlay
+@use '@/styles/partials/ORTokens' as or;
+
+$breakpoint-mobile: 768px;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: #{or.$spacing-md} #{or.$spacing-lg};
+  z-index: or.$z-header;
+}
+
+// — Logo container
+.logoContainer {
+  display: flex;
+  align-items: center;
+  z-index: or.$z-header + 1;
+}
+
+// — Desktop nav (full link list)
+.desktopNav {
+  display: none;
+
+  @media (min-width: #{$breakpoint-mobile + 1}) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// — Mobile hamburger button
+.mobileControls {
+  display: flex;
+  align-items: center;
+  z-index: or.$z-header + 1;
+
+  @media (min-width: #{$breakpoint-mobile + 1}) {
+    display: none;
+  }
+}
+
+// — Full-screen mobile nav overlay
+.navOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color, #151515);
+  z-index: or.$z-navigation;
+}

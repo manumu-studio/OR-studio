@@ -1,0 +1,30 @@
+// HamburgerToggleButton styles — button container and animated line bars
+@use '@/styles/partials/ORTokens' as or;
+
+.hamburgerButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: or.$z-navigation + 1;
+
+  &:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 2px;
+    border-radius: or.$border-radius-xs;
+  }
+}
+
+.line {
+  position: absolute;
+  height: 2px;
+  background-color: var(--text-color, #fff);
+  border-radius: 2px;
+  pointer-events: none;
+}
