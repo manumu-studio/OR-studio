@@ -1,0 +1,87 @@
+// HamburgerToggleButton styles — v1 reference: responsive button and line sizing
+@use '@/styles/partials/ORTokens' as or;
+
+.hamburgerButton {
+  position: relative;
+  z-index: #{or.$z-overlay};
+
+  display: flex;
+  width: 2.875rem; // 46px
+  height: 2.875rem; // 46px
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  cursor: pointer;
+  outline: none;
+  border-radius: #{or.$border-radius-sm};
+
+  justify-content: center;
+  align-items: center;
+
+  transition:
+    transform #{or.$t-normal} ease,
+    background-color #{or.$t-normal} ease,
+    box-shadow #{or.$t-normal} ease;
+
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    transform: scale(#{or.$scale-hover});
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #{or.$color-primary};
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(#{or.$scale-active});
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 2.25rem; // 36px
+    height: 2.25rem; // 36px
+  }
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  width: 1.5rem; // 24px default
+  height: 0.125rem; // 2px
+  font-size: 0;
+
+  background-color: var(--text-color, #fff);
+  border-radius: #{or.$border-radius-xs};
+  opacity: 1;
+
+  display: block;
+  pointer-events: none;
+
+  transition: all #{or.$t-normal} ease;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+
+  @media (max-width: 768px) {
+    width: 1.25rem; // 20px
+    height: 0.125rem; // 2px
+  }
+}

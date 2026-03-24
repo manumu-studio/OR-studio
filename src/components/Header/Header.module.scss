@@ -1,0 +1,73 @@
+// Header styles — absolute header, hamburger always visible, full-screen overlay nav
+@use '@/styles/partials/ORTokens' as *;
+
+// — Header bar
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  overflow: visible;
+  pointer-events: all;
+  z-index: $z-header;
+
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+  }
+}
+
+// — Logo container
+.logoContainer {
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  z-index: $z-dropdown;
+  cursor: pointer;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  @media (max-width: 768px) {
+    height: 32px;
+    width: 32px;
+    justify-content: flex-start;
+    place-items: center;
+  }
+}
+
+// — Hamburger button (always visible above overlay — v1 behavior)
+.hamburgerContainer {
+  display: flex;
+  align-items: center;
+  z-index: $z-overlay;
+  pointer-events: auto;
+  padding-top: 4px;
+}
+
+// — Full-screen nav overlay with backdrop blur
+.navOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: $z-dropdown;
+  pointer-events: all;
+  padding-top: 80px;
+}
+
+// — Hide header when modal is open (lightbox, etc.)
+:global(body.modal-open) .header {
+  z-index: 0 !important;
+}

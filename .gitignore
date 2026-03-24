@@ -58,6 +58,10 @@ docs/PACKET-04-BEGINNER-GUIDE.md
 docs/PACKET-05-DEPLOYMENT-REPORT.md
 docs/TASK-025-JUNIOR-GUIDE.md
 docs/research
+docs/agent-packet-reports
+docs/AUDIT-04-OR-STUDIO.md
+docs/AUDIT-COMPLIANCE-v2.md
+
 
 # ============================================
 # AI/IDE Development System (PRIVATE — local only)
@@ -84,6 +88,7 @@ docs/session-prompts/
 
 # Agents
 agents/
+agentes/
 
 # Project-level CLAUDE.md (root)
 CLAUDE.md

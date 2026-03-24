@@ -1,0 +1,27 @@
+// ModalShell styles — full-screen overlay with centered modal content.
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  isolation: isolate;
+}
+
+.modal {
+  position: relative;
+  max-width: 95vw;
+  max-height: 95vh;
+  outline: none;
+  overflow-y: auto;
+  min-width: 280px;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent, #fff);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}

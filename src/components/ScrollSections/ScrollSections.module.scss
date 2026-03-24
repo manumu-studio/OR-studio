@@ -1,0 +1,51 @@
+// ScrollSections styles — full-viewport scroll-snap container with section nav arrows.
+
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+
+  /* — Top gradient overlay (v1 PageBuilder) */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.3) 30%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    animation: fadeInGradient 1.5s ease-in-out;
+  }
+}
+
+@keyframes fadeInGradient {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

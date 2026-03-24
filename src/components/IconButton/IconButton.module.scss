@@ -1,0 +1,125 @@
+// IconButton styles — v1 port: positioned icon buttons with arrow/zoom variants
+@use '@/styles/partials/ORTokens' as *;
+
+.iconButton {
+  position: absolute;
+  z-index: $z-btn;
+
+  display: flex;
+  width: clamp(2rem, 6vw, var(--button-width, 3rem));
+  height: clamp(2rem, 6vw, var(--button-height, 3rem));
+  border: 0.1rem solid hsla(0, 0%, 100%, 0.15);
+  border-radius: 50%;
+
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background-color #{$t-normal} ease,
+    width #{$t-fast} ease,
+    height #{$t-fast} ease;
+
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    width: calc(var(--button-width, 2.5rem) * 1.05);
+    height: calc(var(--button-height, 2.5rem) * 1.05);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #{$white};
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    &:hover:not(:disabled) {
+      width: 2rem;
+      height: 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.up {
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+
+    .arrowIcon {
+      transform: rotate(-135deg);
+      margin-top: 0.35rem;
+    }
+  }
+
+  &.down {
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+
+    .arrowIcon {
+      transform: rotate(45deg);
+      margin-bottom: 0.1rem;
+    }
+  }
+
+  &.left {
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .arrowIcon {
+      transform: rotate(135deg);
+    }
+  }
+
+  &.right {
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .arrowIcon {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &.zoomIn,
+  &.zoomOut {
+    bottom: 1.5rem;
+    right: 1rem;
+  }
+}
+
+.arrowIcon {
+  position: relative;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-bottom: 1.8px solid #{$white};
+  border-right: 1.8px solid #{$white};
+  transform-origin: center;
+  pointer-events: none;
+
+  @media (max-width: 768px) {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.zoomSymbol {
+  position: relative;
+  display: block;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: #{$white};
+  transform-origin: center;
+  pointer-events: none;
+}

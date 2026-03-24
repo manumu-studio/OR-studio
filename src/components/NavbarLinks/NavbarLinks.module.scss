@@ -1,0 +1,64 @@
+// NavbarLinks styles — full-screen overlay nav list (always vertical, v1 behavior)
+@use '@/styles/partials/ORTokens' as *;
+
+// — Nav list (always centered column — overlay only)
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10rem;
+  position: relative;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    margin-top: 25px;
+    gap: 20px;
+  }
+}
+
+// — Nav item
+.navItem {
+  position: relative;
+}
+
+// — Nav link
+.navLink {
+  font-family: $font-family-base;
+  font-size: 30px;
+  font-weight: $font-weight-light;
+  color: var(--text-color, #fff);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 4px;
+    border-radius: $border-radius-xs;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+}
+
+// — Active link indicator
+.active .navLink {
+  font-weight: bold;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+
+  @media (max-width: 768px) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+}

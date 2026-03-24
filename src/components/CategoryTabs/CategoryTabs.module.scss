@@ -1,0 +1,53 @@
+// CategoryTabs styles — horizontal tab bar with animated underline indicator.
+
+@use '@/styles/partials/ORTokens' as *;
+
+.tabList {
+  display: none;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.tab {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  &.active {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px;
+}

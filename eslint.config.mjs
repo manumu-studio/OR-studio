@@ -34,6 +34,12 @@ const eslintConfig = [
     },
   },
   {
+    files: ['src/seed/**/*.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     ignores: ['.next/', 'node_modules/'],
   },
 ]
