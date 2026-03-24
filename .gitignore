@@ -39,6 +39,9 @@ pnpm-debug.log*
 # Vercel
 .vercel
 
+# Docker
+.env.docker
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
@@ -89,6 +92,9 @@ docs/session-prompts/
 # Agents
 agents/
 agentes/
+
+# Agent reports
+docs/agent-packet-reports/
 
 # Project-level CLAUDE.md (root)
 CLAUDE.md

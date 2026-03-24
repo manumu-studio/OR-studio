@@ -19,7 +19,12 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "prepare": "husky",
-    "seed": "tsx src/seed/index.ts"
+    "seed": "tsx src/seed/index.ts",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
+    "docker:build": "docker compose build --no-cache",
+    "docker:admin": "docker compose --profile admin up",
+    "docker:clean": "docker compose down -v --remove-orphans"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
