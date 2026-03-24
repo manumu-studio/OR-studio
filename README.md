@@ -26,6 +26,24 @@ All content is managed through the CMS:
 
 ## Getting Started
 
+### Option 1: Docker (Recommended for Quick Start)
+
+```bash
+# Copy Docker environment template
+cp .env.docker.example .env.docker
+# Fill in Cloudinary credentials (MongoDB runs in container)
+
+# Start all services (Next.js + MongoDB)
+pnpm docker:up
+
+# Access the site at http://localhost:3000
+# Access the admin panel at http://localhost:3000/admin
+# Optional: Access MongoDB admin UI at http://localhost:8081
+#   pnpm docker:admin
+```
+
+### Option 2: Local Development
+
 ```bash
 # Install dependencies
 pnpm install
@@ -43,6 +61,8 @@ pnpm dev
 
 ## Scripts
 
+### Development
+
 ```bash
 pnpm dev          # Start development server
 pnpm build        # Production build
@@ -51,6 +71,16 @@ pnpm lint         # ESLint
 pnpm typecheck    # TypeScript check
 pnpm test         # Run tests
 pnpm seed         # Seed database with v1 data
+```
+
+### Docker
+
+```bash
+pnpm docker:up      # Start app + MongoDB
+pnpm docker:down    # Stop services (data persists)
+pnpm docker:build   # Rebuild containers
+pnpm docker:admin   # Start with MongoDB admin UI
+pnpm docker:clean   # Stop and remove all data
 ```
 
 ## Documentation
