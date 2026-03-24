@@ -3,6 +3,8 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Standalone output for Docker production builds — bundles server into a single directory
+  output: 'standalone',
   images: {
     loader: 'custom',
     loaderFile: './src/lib/cloudinary-loader.ts',

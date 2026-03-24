@@ -1,0 +1,69 @@
+# Dependencies — installed inside container
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+.next/
+out/
+build/
+dist/
+
+# Environment files — injected via docker-compose env_file
+.env
+.env.*
+!.env.example
+!.env.docker
+
+# Version control
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+test-results/
+
+# Docker (prevent recursive context)
+docker-compose*.yml
+Dockerfile
+
+# Documentation (not needed in image)
+docs/
+_docs/
+*.md
+!README.md
+
+# Debug logs
+npm-debug.log*
+pnpm-debug.log*
+
+# Vercel
+.vercel
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Payload local media
+media/
+
+# Claude / AI config
+.claude/
+.cursorrules
+agents/
+agentes/
+CLAUDE.md
+CONTINUATION_PROMPT_NEXT_SESSION.md
+PROJECT_MAP.md
+
+# Husky hooks (not needed in container)
+.husky/

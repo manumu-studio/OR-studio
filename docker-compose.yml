@@ -1,0 +1,86 @@
+# Docker Compose for OR Studio v2 — local development environment
+# Usage: docker compose up (app + mongodb)
+# Admin: docker compose --profile admin up (adds mongo-express)
+
+services:
+  # === Next.js + Payload CMS ===
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: or-studio-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.docker
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      # Bind mount source for hot reload — node_modules excluded via anonymous volume
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./scripts:/app/scripts
+      - ./next.config.mjs:/app/next.config.mjs
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - or-studio-net
+
+  # === MongoDB (local dev instance) ===
+  mongodb:
+    image: mongo:7.0
+    container_name: or-studio-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin_password
+      MONGO_INITDB_DATABASE: or-studio
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - or-studio-net
+
+  # === Mongo Express (DB admin UI — optional) ===
+  mongo-express:
+    image: mongo-express:1.0
+    container_name: or-studio-mongo-express
+    profiles:
+      - admin
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin_password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin_password@mongodb:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - or-studio-net
+
+volumes:
+  mongodb_data:
+    name: or-studio-mongodb-data
+
+networks:
+  or-studio-net:
+    name: or-studio-network

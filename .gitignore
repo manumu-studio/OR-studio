@@ -39,6 +39,9 @@ pnpm-debug.log*
 # Vercel
 .vercel
 
+# Docker
+.env.docker
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
@@ -61,7 +64,6 @@ docs/research
 docs/agent-packet-reports
 docs/AUDIT-04-OR-STUDIO.md
 docs/AUDIT-COMPLIANCE-v2.md
-
 
 # ============================================
 # AI/IDE Development System (PRIVATE — local only)
@@ -89,6 +91,9 @@ docs/session-prompts/
 # Agents
 agents/
 agentes/
+
+# Agent reports
+docs/agent-packet-reports/
 
 # Project-level CLAUDE.md (root)
 CLAUDE.md
